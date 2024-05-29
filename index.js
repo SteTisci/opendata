@@ -8,11 +8,54 @@ const fetchData = async (URL) => {
             throw new Error(`Errore durante la richiesta ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(data);
+        
+        return data;
         
     } catch(error) {
         console.error(error)
     };
 }
 
-fetchData(URL);
+const dataExtraction = (data) => {
+    const info = data.map(element => {
+        return {
+            year: element.anno,
+            month: element.mese_num,
+            visits: element.visits,
+            pageViews: element.pageviews,
+            visitors: element.visitors,
+        }
+    });
+    return info;
+}
+
+// problema dati visualiizati causato da select querySelector, non prende value perche sono in option 
+// DA SISTEMARE STO BORDELLO
+
+const showInfo = (info) => {
+    
+    document.querySelector('.choice').forEach(input => {
+        input.addEventListener('change', () => {
+            const div = document.querySelector('.info');
+            const yearValue = document.querySelector('.year').value;
+            const monthValue = document.querySelector('.month').value;
+            info.map(element => {
+                if (element.year == year && element.month == month) {
+                    div.innerHTML = `
+                        <p>Visite data ${element.year}/${element.month}</p>
+                        <p>Visualizzazioni: ${element.visits}</p>
+                        <p>Pagine Visitate: ${element.pageViews}</p>
+                        <p>Visitatori: ${element.visitors}</p>
+                    `;
+                };
+            });
+        });
+    });
+}
+
+fetchData(URL)
+    .then((data) => {
+        const info = dataExtraction(data);
+        showInfo(info);
+    })
+// prendere i valori Select html e mostrare info in base mese e anno
