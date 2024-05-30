@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenData Visite</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
@@ -12,7 +13,7 @@
         <div class="inputfield">
             
             <label for="yearChoice">Anno</label>
-            <select name="yearChoice" class="choice year">
+            <select name="yearChoice" class="yearChoice year">
                 <option value="2018">2018</option>
                 <option value="2019">2019</option>
                 <option value="2020">2020</option>
@@ -23,7 +24,7 @@
             </select>
             
             <label for="monthChoice">Mese</label>
-            <select name="monthChoice" class="choice month">
+            <select name="monthChoice" class="monthChoice month">
                 <option value="1">Gennaio</option>
                 <option value="2">Febbraio</option>
                 <option value="3">Marzo</option>
@@ -37,6 +38,7 @@
                 <option value="11">Novembre</option>
                 <option value="12">Dicembre</option>
             </select>
+            <button class="send">Cerca</button>
             <div class="info"></div>
         </div>
     </div>
