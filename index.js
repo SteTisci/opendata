@@ -1,10 +1,12 @@
 const URL = "https://dati.comune.milano.it/dataset/d01a4abd-1e76-4b06-a9e6-e96a4f1d6a35/resource/ac9a644c-a2bf-419a-9b93-735417eb6c73/download/portale_opendata_daterangemonth_20240510.json";
 
+
 // Manda una richiesta al sito OpenData
 const fetchData = async (URL) => {
     try {
         const response = await fetch(URL);
 
+        // Controllo stato risposta
         if (!response.ok) {
             throw new Error(`Errore durante la richiesta ${response.statusText}`);
         }
@@ -16,6 +18,7 @@ const fetchData = async (URL) => {
         console.error(error)
     };
 }
+
 
 // Formattazione dati da Risposta Json
 const dataExtraction = (data) => {
@@ -31,31 +34,41 @@ const dataExtraction = (data) => {
     return info;
 }
 
+
 fetchData(URL)
     .then((data) => {
         const info = dataExtraction(data);
 
+        // Event listener per la visualizzazione dei risultati quandi il button send viene cliccato
         document.querySelector('.send').addEventListener('click', () => {
 
             const div = document.querySelector('.info');
             const yearValue = document.querySelector('.yearChoice').value;
             const monthValue = document.querySelector('.monthChoice').value;
 
-            div.innerHTML = '';  // Clear previous results
+            div.innerHTML = '';  // Rimuove risultati precedenti
 
-            info.forEach(element => {
-
-                if (element.year == yearValue && element.month == monthValue) {
-                    div.innerHTML = `
-                        <div class="result">
-                            <p class="data"><strong>Data:</strong> ${element.month}/${element.year}</p>
-                            <p class="visits"><strong>Visite:</strong> ${element.visits}</p>
-                            <p class="pageViews"><strong>Pagine Visitate:</strong> ${element.pageViews}</p>
-                            <p class="visitors"><strong>Visitatori:</strong> ${element.visitors}</p>
-                        </div>
-                    `
-                }
-            })
+            // Cerco l'elemento con la data corrispondente all'input dell'utente
+            const filteredData = info.find(element => element.year == yearValue && element.month == monthValue);
+                
+            // Se l'elemento esiste viene inserito nella pagina html
+            if (filteredData) {
+                // Struttura elementi che verranno inseriti
+                div.innerHTML = `
+                    <div class="result">
+                        <p class="data"><strong>Data:</strong> ${filteredData.month}/${filteredData.year}</p>
+                        <p class="visits"><strong>Visite:</strong> ${filteredData.visits}</p>
+                        <p class="pageViews"><strong>Pagine Visitate:</strong> ${filteredData.pageViews}</p>
+                        <p class="visitors"><strong>Visitatori:</strong> ${filteredData.visitors}</p>
+                    </div>
+                `
+            } else {
+                div.innerHTML = `
+                    <div class='result'>
+                        <p class='noData'>Nessun dato presente per la Data ${monthValue}/${yearValue}</p>
+                    </div>    
+                `   
+            }
         });
     })
     .catch(error => console.error(error));
