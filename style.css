@@ -1,4 +1,4 @@
-/* styles.css */
+/* style.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -90,4 +90,8 @@ button.send:hover {
 
 .result p strong {
     color: #007BFF;
+}
+
+.result p.noData {
+    color: #ff0000;
 }
