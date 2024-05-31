@@ -15,7 +15,8 @@ const fetchData = async (URL) => {
         return data;
         
     } catch(error) {
-        console.error(error)
+        console.error(error);
+        throw error;
     };
 }
 
@@ -68,6 +69,63 @@ fetchData(URL)
                         <p class='noData'>Nessun dato presente per la Data ${monthValue}/${yearValue}</p>
                     </div>    
                 `   
+            }
+        });
+        return info;
+    })
+    .then((info) => {
+        const reversedInfo = info.reverse();
+
+        const xValues = reversedInfo.map(({ month, year }) => `${month}/${year}`);
+        const visitors = reversedInfo.map(({ visitors }) => visitors);
+        const visits = reversedInfo.map(({visits}) => visits);
+        const pageviews = reversedInfo.map(({pageViews}) => pageViews);
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: "Visitatori",
+                    backgroundColor: "rgba(0, 0, 0, 0)",
+                    borderColor: "rgba(0, 0, 255, 1)",
+                    data: visitors,
+                    fill: false,
+                    tension: 0.1 // rende la linea leggermente curva
+                }, 
+                {
+                    label: "Visite",
+                    backgroundColor: "rgba(0, 0, 0, 0)",
+                    borderColor: "rgba(0, 255, 0, 1)",
+                    data: visits,
+                    fill: false,
+                    tension: 0.1 // rende la linea leggermente curva
+                },
+                {
+                    label: "Pagine visitate",
+                    backgroundColor: "rgba(0, 0, 0, 0)",
+                    borderColor: "rgba(255, 0, 0, 1)",
+                    data: pageviews,
+                    fill: false,
+                    tension: 0.1 // rende la linea leggermente curva
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Visitors Over Time'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
             }
         });
     })
