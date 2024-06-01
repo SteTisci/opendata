@@ -11,57 +11,41 @@ body {
 }
 
 .contenitore {
-    background-color: #ffffff;
-    margin: 20px;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    width: 100%;
+    margin-top: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
 }
 
 h1 {
-    font-size: 24px;
-    color: #333333;
-    text-align: center;
-    margin-bottom: 20px;
+    color: #333;
 }
 
 .inputfield {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    margin-bottom: 20px;
 }
 
 label {
-    font-size: 16px;
-    color: #555555;
-    margin-bottom: 5px;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    background-color: #ffffff;
-    transition: border-color 0.3s ease;
-}
-
-select:focus {
-    border-color: #007BFF;
-    outline: none;
+    padding: 5px;
+    margin-right: 10px;
 }
 
 button.send {
-    padding: 10px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #007BFF;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button.send:hover {
@@ -71,37 +55,23 @@ button.send:hover {
 .info {
     margin-top: 20px;
     padding: 10px;
-    border-top: 1px solid #cccccc;
+    border-radius: 8px;
 }
 
 .result {
-    padding: 10px;
     margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fafafa;
-}
-
-.result p {
-    font-size: 16px;
-    color: #333333;
-    margin: 5px 0;
-}
-
-.result p strong {
-    color: #007BFF;
-}
-
-.result p.noData {
-    color: #ff0000;
 }
 
 .chart-container {
-    background-color: #ffffff;
-    margin: 20px;
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+canvas {
+    max-width: 100%;
 }
