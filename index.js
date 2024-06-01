@@ -36,8 +36,8 @@ const formatData = (data) => data.map(({ anno, mese_num, visitors, visits, pagev
 // Inserimento dati nella pagina html
 const insertDataHTMl = (info, div) => {
 
-    const yearValue = document.querySelector('.yearChoice').value;
-    const monthValue = document.querySelector('.monthChoice').value;
+    const yearValue = document.querySelector('#yearChoice').value;
+    const monthValue = document.querySelector('#monthChoice').value;
 
     div.style.backgroundColor = '#e9ecef';
     div.innerHTML = '';  // Rimuove risultati precedenti
