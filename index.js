@@ -24,18 +24,13 @@ const fetchData = async (URL) => {
 
 
 // Formattazione dati da Risposta Json
-const getData = (data) => {
-    const info = data.map(element => {
-        return {
-            year: element.anno,
-            month: element.mese_num,
-            visits: element.visits,
-            pageViews: element.pageviews,
-            visitors: element.visitors,
-        }
-    });
-    return info;
-}
+const formatData = (data) => data.map(({ anno, mese_num, visitors, visits, pageviews }) => ({
+    year: anno,
+    month: mese_num,
+    visitors,
+    pageviews,
+    visits,
+}));
 
 
 // Inserimento dati nella pagina html
@@ -47,27 +42,21 @@ const insertDataHTMl = (info, div) => {
     div.style.backgroundColor = '#e9ecef';
     div.innerHTML = '';  // Rimuove risultati precedenti
 
-    // Cerco l'elemento con la data corrispondente all'input dell'utente
     const filteredData = info.find(element => element.year == yearValue && element.month == monthValue);
         
-    // Se l'elemento esiste viene inserito nella pagina html
-    if (filteredData) {
-        // Struttura elementi che verranno inseriti
-        div.innerHTML = `
-            <div class="result">
-                <p class="visits"><strong>Visite:</strong> ${filteredData.visits}</p>
-                <p class="pageViews"><strong>Pagine Visitate:</strong> ${filteredData.pageViews}</p>
-                <p class="visitors"><strong>Visitatori:</strong> ${filteredData.visitors}</p>
-            </div>
-        `
-    } else {
-        // Struttura elementi se non sono presenti dati
-        div.innerHTML = `
-            <div class='result'>
-                <p class='noData'>Nessun dato presente per la Data ${monthValue}/${yearValue}</p>
-            </div>    
-        `   
-    }
+    div.innerHTML = filteredData ? `
+        <div class="result">
+            <p class="visits"><strong>Visite:</strong> ${filteredData.visits}</p>
+            <p class="pageViews"><strong>Pagine Visitate:</strong> ${filteredData.pageviews}</p>
+            <p class="visitors"><strong>Visitatori:</strong> ${filteredData.visitors}</p>
+        </div>
+    ` : `
+        <div class='result'>
+            <p class='noData'>Nessun dato presente per la Data ${monthValue}/${yearValue}</p>
+        </div>    
+    `;
+
+
 }
 
 
@@ -76,8 +65,8 @@ const createChart = (info) => {
 
     const xValues = info.map(({ month, year }) => `${month}/${year}`);
     const visitors = info.map(({ visitors }) => visitors);
-    const visits = info.map(({visits}) => visits);
-    const pageviews = info.map(({pageViews}) => pageViews);
+    const visits = info.map(({ visits }) => visits);
+    const pageviews = info.map(({ pageviews }) => pageviews);
 
     new Chart("myChart", {
         type: "line",
@@ -129,16 +118,18 @@ const createChart = (info) => {
 }
 
 
-fetchData(URL)
-    .then((data) => {
-        const info = getData(data);
-
-        // Event listener per la visualizzazione dei risultati quando il button send viene cliccato
+const initialize = async () => {
+    try {
+        const data = await fetchData(URL);
+        const info = formatData(data);
         document.querySelector('.send').addEventListener('click', () => {
             const div = document.querySelector('.info');
             insertDataHTMl(info, div);
         });
-        // Creazione grafico
         createChart(info.reverse());
-    })
-    .catch(error => console.error(error));
+    } catch(error) {
+        console.error(`Errore durante l'inizializzazione: ${error}`);
+    }
+}
+
+initialize();
