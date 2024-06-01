@@ -34,8 +34,9 @@ const formatData = (data) => data.map(({ anno, mese_num, visitors, visits, pagev
 
 
 // Inserimento dati nella pagina html
-const insertDataHTMl = (info, div) => {
+const insertDataHTMl = (info) => {
 
+    const div = document.querySelector('.info');
     const yearValue = document.querySelector('#yearChoice').value;
     const monthValue = document.querySelector('#monthChoice').value;
 
@@ -122,9 +123,9 @@ const initialize = async () => {
     try {
         const data = await fetchData(URL);
         const info = formatData(data);
+        
         document.querySelector('.send').addEventListener('click', () => {
-            const div = document.querySelector('.info');
-            insertDataHTMl(info, div);
+            insertDataHTMl(info);
         });
         createChart(info.reverse());
     } catch(error) {

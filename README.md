@@ -26,7 +26,7 @@ Questo file contiene il codice JavaScript principale per l'applicazione. Le prin
 
 1. **fetchData(url)**: Effettua una richiesta HTTP per ottenere i dati JSON dal sito OpenData.
 2. **formatData(data)**: Formattra i dati ricevuti, trasformando gli oggetti per un uso più comodo.
-3. **insertDataHTML(info, div)**: Inserisce i dati formattati nella pagina web, filtrando per anno e mese selezionati dall'utente.
+3. **insertDataHTML(info)**: Inserisce i dati formattati nella pagina web, filtrando per anno e mese selezionati dall'utente.
 4. **createChart(info)**: Crea un grafico interattivo utilizzando Chart.js, basato sui dati ricevuti.
 5. **initialize()**: Funzione principale che inizializza l'applicazione, effettua la richiesta dei dati, formatta i dati e imposta gli event listener per le interazioni dell'utente.
 
