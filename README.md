@@ -35,4 +35,4 @@ Questo file contiene il codice JavaScript principale per l'applicazione. Le prin
 Il progetto utilizza Chart.js per creare grafici interattivi. Il link alla CDN di Chart.js è incluso direttamente nel file HTML:
 
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
