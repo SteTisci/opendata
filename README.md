@@ -36,3 +36,8 @@ Il progetto utilizza Chart.js per creare grafici interattivi. Il link alla CDN d
 
 ```html
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+```
+
+##
+
+<p><a href="https://stetisci.github.io/opendata/">Live Demo</p>
